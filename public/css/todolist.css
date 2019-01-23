@@ -1,7 +1,16 @@
 .icon-create{
-    font-size: 30px;
+    font-size: 45px;
 }
 
 .todolist-card{
     margin-bottom: 15px;
+}
+
+.todolist-input{
+    margin-bottom: 5px;
+}
+
+.todolist-icon {
+    margin-bottom: 12px;
+    position: unset;
 }
