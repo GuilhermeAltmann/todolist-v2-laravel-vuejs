@@ -3,7 +3,7 @@
 @section('content')
 <div class="container" id="todo">
     <div class="row">
-        <div class="col-md-4" v-for="list in lists">
+        <div class="col-md-4 todolist-card" v-for="list in lists">
             <div class="card">
                 <div class="card-header">
                     <div class="row">
