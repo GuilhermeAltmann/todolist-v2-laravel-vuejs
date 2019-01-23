@@ -15,25 +15,25 @@
                                 <span class="oi oi-plus" title="add"></span>
                             </a>
                             <a href="javascript:void(0)">
-                                <span class="oi oi-trash" title="remove"></span>
+                                <span class="oi oi-trash" v-on:click="removeCard(index)" title="remove"></span>
                             </a>     
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row" v-for="(item, itemIndex) in list.itens">
-                        <div class="col-md-8 col-sm-8">
+                        <div class="col-md-9 col-sm-9">
                             <input class="form-control form-control-sm todolist-input input-sm" v-model="item.description"></input>
                         </div>   
-                        <div class="col-md-4 col-sm-4 align-self-end">
-                            <a href="javascript:void(0)">
-                                <span class="oi oi-file todolist-icon" title="save"></span>
-                            </a>
+                        <div class="col-md-3 col-sm-3 align-self-end">
+                            <!-- <a href="javascript:void(0)"> -->
+                                <!-- <span class="oi oi-file todolist-icon" title="save"></span> -->
+                            <!-- </a> -->
                             <a href="javascript:void(0)">
                                 <span class="oi oi-check todolist-icon" title="check"></span>
                             </a>
                             <a href="javascript:void(0)">
-                                <span class="oi oi-transfer todolist-icon" title="transfer" data-toggle="modal" data-target="#modalTransfer" v-on:click="changeModalTitle(index, itemIndex)"></span>
+                                <span class="oi oi-transfer todolist-icon" title="transfer" data-toggle="modal" data-target="#modalTransfer" v-on:click="openModalTitle(index, itemIndex)"></span>
                             </a>
                             <a href="javascript:void(0)">
                                 <span class="oi oi-trash todolist-icon" v-on:click="removeItem(index, itemIndex)" title="remove"></span>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Transfer</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="transferItem">Transfer</button>
                 </div>
             </div>
         </div>

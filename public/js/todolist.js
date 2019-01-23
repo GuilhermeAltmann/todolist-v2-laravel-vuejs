@@ -2,7 +2,9 @@ var vm = new Vue({
     el: '#todo',
     data: {
       item: "",
+      indexItem: "",
       card: "",
+      cardA: "",
       cards: ["Titulo"],
       lists: [{
         title: "Titulo",
@@ -53,10 +55,23 @@ var vm = new Vue({
         this.lists[index].itens.splice(indexItem, 1);
         
       },
-      changeModalTitle: function(index, indexItem){
+      removeCard: function(index){
+        
+        this.lists.splice(index, 1);
+      },
+      openModalTitle: function(index, indexItem){
 
         this.item = this.lists[index].itens[indexItem];
+        this.indexItem = indexItem;
         this.card = index;
+        this.cardA = index;
       },
+      transferItem: function(){
+
+        item = this.item
+
+        this.lists[this.cardA].itens.splice(this.indexItem, 1);
+        this.lists[this.card].itens.push(item)
+      }
     },
 })
