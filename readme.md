@@ -4,17 +4,17 @@
 ## Install
 
 ``
-composer update
+run composer update
 ``
 
 ``
-Config database '.env'
+Config database on file '.env'
 ``
 
 ``
-php artisan migrate
+run php artisan migrate
 ``
 
 ``
-php artisan server
+run php artisan server
 ``
