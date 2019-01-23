@@ -14,5 +14,16 @@ var vm = new Vue({
     },
     computed: {
       
-    }
+    },
+    methods: {
+      add: function(){
+
+        this.lists.push({title: "",
+          itens:[{
+            id:-1,
+            description: ""
+          }]
+        })
+      }
+    },
 })

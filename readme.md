@@ -16,5 +16,5 @@ run php artisan migrate
 ``
 
 ``
-run php artisan server
+run php artisan serve
 ``

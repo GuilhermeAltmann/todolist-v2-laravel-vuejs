@@ -20,6 +20,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/open-iconic-bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/todolist.css') }}" rel="stylesheet">
     
 </head>
 <body>
