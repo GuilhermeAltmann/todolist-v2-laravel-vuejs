@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <div class="row" v-for="(item, itemIndex) in list.itens">
                         <div class="col-md-9 col-sm-9">
-                            <input class="form-control form-control-sm todolist-input input-sm" v-model="item.description" v-on:keyup="saveItem(item, index, list.id, indexItem)"></input>
+                            <input class="form-control form-control-sm todolist-input input-sm" v-model="item.description" v-on:keyup="saveItem(item, index, list.id, itemIndex)"></input>
                         </div>   
                         <div class="col-md-3 col-sm-3 align-self-end">
                             <!-- <a href="javascript:void(0)"> -->
@@ -72,8 +72,8 @@
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Select</label>
                         <select class="form-control" v-model="card">
-                            <option v-for="description, index) in cards" v-bind:value="index">
-                                @{{ description }}
+                            <option v-for="card in cards" v-bind:value="card.id">
+                                @{{ card.title }}
                             </option>
                         </select>
                     </div>

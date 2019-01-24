@@ -20,6 +20,10 @@ var vm = new Vue({
     },
     mounted: function(){
 
+      _ = this.cards
+
+      cards = []
+
       this.$http.get('/lists').then(response => {
 
         // get body data
@@ -32,11 +36,17 @@ var vm = new Vue({
       this.$http.get('/cards').then(response => {
 
         // get body data
-        this.cards = response.body
+        response.body.forEach(function(item, index){
+
+          cards.push({id: item.id, title: item.title})
+
+        })
 
       }, response => {
         // error callback
       })
+
+      _.cards = cards;
     },
     watch: {
       lists:{
@@ -44,8 +54,11 @@ var vm = new Vue({
 
           _ = this
 
+          _.cards = []
+
           val.forEach(function(item, index){
-            _.cards[index] = item.title
+
+            _.cards.push({id: item.id, title: item.title})
           })
         },
         deep: true
@@ -72,6 +85,16 @@ var vm = new Vue({
       },
       removeItem: function(index, indexItem){
 
+        id = this.lists[index].itens[indexItem].id;
+
+        if(id != -1){
+
+          this.$http.delete('/itens/' + id).then(response => {
+
+          }, response => {
+            // error callback
+          })
+        }
         this.lists[index].itens.splice(indexItem, 1);
         
       },
@@ -94,15 +117,40 @@ var vm = new Vue({
 
         this.item = this.lists[index].itens[indexItem];
         this.indexItem = indexItem;
-        this.card = index;
+        this.card = this.lists[index].id;
         this.cardA = index;
       },
       transferItem: function(){
 
         item = this.item
+        id = this.lists[this.cardA].itens[this.indexItem].id;
 
-        this.lists[this.cardA].itens.splice(this.indexItem, 1);
-        this.lists[this.card].itens.push(item)
+        this.$http.delete('/itens/' + id).then(response => {
+
+        }, response => {
+          // error callback
+        })
+
+        item.id = -1
+
+        this.$http.post('/itens/' + this.card, item).then(response => {
+
+          // get body data
+          this.lists[this.cardA].itens[this.indexItem].id = response.body;
+        }, response => {
+          // error callback
+        })
+
+        this.$http.get('/lists').then(response => {
+
+          // get body data
+          this.lists = response.body
+  
+        }, response => {
+          // error callback
+        })
+        
+
       },
 
       saveCard: function(list, index){
@@ -126,6 +174,7 @@ var vm = new Vue({
         
       },
       saveItem: function(item, index, cardId, indexItem){
+
 
         if (this.timer) {
           clearTimeout(this.timer);

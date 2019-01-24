@@ -23,3 +23,4 @@ Route::get('/cards', 'HomeController@cards');
 Route::post('/lists', 'HomeController@addCard');
 Route::post('/itens/{cardId}', 'HomeController@saveItem');
 Route::delete('/lists/{id}', 'HomeController@removeCard');
+Route::delete('/itens/{id}', 'HomeController@removeItem');

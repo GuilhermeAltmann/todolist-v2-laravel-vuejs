@@ -97,6 +97,12 @@ class HomeController extends Controller
         Card::find($id)->delete();
     }
 
+    public function removeItem($id)
+    {
+
+        Task::find($id)->delete();
+    }
+
     public function saveItem($cardId, Request $request)
     {
 
