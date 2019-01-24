@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-9 col-sm-9">
-                            <input class="form-control form-control-sm" v-model="list.title"></input>
+                            <input class="form-control form-control-sm" v-model="list.title" v-on:keyup="saveCard(list, index)"></input>
                         </div>
                         <div class="col-md-3 col-sm-3 align-self-end">
                             <a href="javascript:void(0)" v-on:click="addItem(index)">
@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <div class="row" v-for="(item, itemIndex) in list.itens">
                         <div class="col-md-9 col-sm-9">
-                            <input class="form-control form-control-sm todolist-input input-sm" v-model="item.description"></input>
+                            <input class="form-control form-control-sm todolist-input input-sm" v-model="item.description" v-on:keyup="saveItem(item, index, list.id, indexItem)"></input>
                         </div>   
                         <div class="col-md-3 col-sm-3 align-self-end">
                             <!-- <a href="javascript:void(0)"> -->

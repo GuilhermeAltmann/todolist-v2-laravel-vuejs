@@ -1,3 +1,9 @@
+Vue.http.interceptors.push(function(request) {
+
+  // modify headers
+  request.headers.set('X-CSRF-TOKEN', document.getElementById("csrf-token").getAttribute('content'));
+});
+
 var vm = new Vue({
     el: '#todo',
     data: {
@@ -5,20 +11,32 @@ var vm = new Vue({
       indexItem: "",
       card: "",
       cardA: "",
-      cards: ["Titulo"],
-      lists: [{
-        title: "Titulo",
-        itens:[{
-          id:1,
-          description: "oi"
-        },
-        {id:1,
-        description: "teste"
-      }]
-      }]
+      cards: [],
+      lists: [],
+      timer: 800
     },
     computed: {
       
+    },
+    mounted: function(){
+
+      this.$http.get('/lists').then(response => {
+
+        // get body data
+        this.lists = response.body
+
+      }, response => {
+        // error callback
+      })
+
+      this.$http.get('/cards').then(response => {
+
+        // get body data
+        this.cards = response.body
+
+      }, response => {
+        // error callback
+      })
     },
     watch: {
       lists:{
@@ -36,7 +54,9 @@ var vm = new Vue({
     methods: {
       addCard: function(){
 
-        this.lists.push({title: "",
+        this.lists.push({
+          id:-1,
+          title: "",
           itens:[{
             id:-1,
             description: ""
@@ -57,6 +77,17 @@ var vm = new Vue({
       },
       removeCard: function(index){
         
+        id = this.lists[index].id;
+
+        if(id != -1){
+
+          this.$http.delete('/lists/' + id).then(response => {
+
+          }, response => {
+            // error callback
+          })
+        }
+
         this.lists.splice(index, 1);
       },
       openModalTitle: function(index, indexItem){
@@ -72,6 +103,45 @@ var vm = new Vue({
 
         this.lists[this.cardA].itens.splice(this.indexItem, 1);
         this.lists[this.card].itens.push(item)
+      },
+
+      saveCard: function(list, index){
+
+        if (this.timer) {
+          clearTimeout(this.timer);
+          this.timer = null;
+        }
+
+        this.timer = setTimeout(() => {
+
+          this.$http.post('/lists', list).then(response => {
+
+            // get body data
+            this.lists[index].id = response.body;
+    
+          }, response => {
+            // error callback
+          })
+        }, 800);
+        
+      },
+      saveItem: function(item, index, cardId, indexItem){
+
+        if (this.timer) {
+          clearTimeout(this.timer);
+          this.timer = null;
+        }
+
+        this.timer = setTimeout(() => {
+          this.$http.post('/itens/' + cardId, item).then(response => {
+
+            // get body data
+            this.lists[index].itens[indexItem].id = response.body;
+    
+          }, response => {
+            // error callback
+          })
+        }, 800);
       }
     },
 })

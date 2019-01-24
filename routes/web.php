@@ -18,3 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/lists', 'HomeController@lists');
+Route::get('/cards', 'HomeController@cards');
+Route::post('/lists', 'HomeController@addCard');
+Route::post('/itens/{cardId}', 'HomeController@saveItem');
+Route::delete('/lists/{id}', 'HomeController@removeCard');
